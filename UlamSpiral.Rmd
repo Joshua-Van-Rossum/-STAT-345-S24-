@@ -1,0 +1,83 @@
+---
+title: "Ulam Spiral"
+author: "Joshua Van Rossum"
+date: "2024-03-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+spiral <- function(n) {
+  graph <- matrix(0, n, n)
+
+  x <- n/2
+  y <- (n/2)
+  dir <- 1
+  count <- 2
+  movement <- 1
+  cur <- 1
+
+  for (i in 1:n^2) {
+    if (is_prime(i) || i == 2) {
+      graph[x,y] = 1
+      ##print("prime")
+      ##print(graph)
+    }
+
+  if (dir == 0) { ##up
+   x <- x - 1
+    ##print("moved y up")
+  } else if (dir == 1) { ##right
+    y <- y+1
+  ##print("moved y to the ritght")
+  } else if (dir == 2) { ## down
+    x <- x + 1
+    ##print("moved down")
+  } else if (dir == 3) { ## left
+    y <- y - 1
+    ##print("moved left")
+  }
+  cur <- cur - 1
+  if (cur == 0 && count == 1) {
+      count <- 2
+      movement <- movement + 1
+      cur <- movement
+      dir <- (dir + 1)%% 4
+    } else if (cur == 0) {
+      count <- count - 1
+      cur <- movement
+      dir <- (dir + 1)%% 4
+  }
+
+    ##print(paste(x,y))
+  }
+
+ return(graph)
+}
+
+is_prime <- function(n) {
+  if (n <= 1) {
+    return(FALSE)  # 1 and any number less than or equal to 1 are not prime
+  }
+  
+  for (i in 2:(floor(sqrt(n)))) {
+    if (n %% i == 0) {
+      return(FALSE)  # If n is divisible by any number between 2 and sqrt(n), it's not prime
+    }
+  }
+  
+  return(TRUE)  # If no divisors were found, the number is prime
+}
+
+##print(spiral(4))
+one_coords <- which(spiral(20) == 1, arr.ind = TRUE)
+plot(one_coords[, 2], one_coords[, 1], pch = 19, col = "blue", xlab = "Column", ylab = "Row", main = " Plot")
+#spiral(200)
+#spiral(400)
+#spiral(800)
+```
+
