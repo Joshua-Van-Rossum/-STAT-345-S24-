@@ -76,8 +76,5 @@ is_prime <- function(n) {
 ##print(spiral(4))
 one_coords <- which(spiral(20) == 1, arr.ind = TRUE)
 plot(one_coords[, 2], one_coords[, 1], pch = 19, col = "blue", xlab = "Column", ylab = "Row", main = " Plot")
-#spiral(200)
-#spiral(400)
-#spiral(800)
 ```
 
